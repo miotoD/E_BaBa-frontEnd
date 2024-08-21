@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../app/bootstrap";
 import { url } from "inspector";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -44,9 +45,13 @@ export default function Home() {
 
             <div className="List p-1 col-start-11 col-span-2">
               <ul className="flex gap-4">
-                <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
-                  LogIn
-                </li>
+                <Link href="/Pages/Login">
+                  {" "}
+                  <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
+                    LogIn
+                  </li>
+                </Link>
+
                 <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
                   Register
                 </li>
