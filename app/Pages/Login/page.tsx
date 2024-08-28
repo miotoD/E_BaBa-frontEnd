@@ -4,6 +4,7 @@ import React from "react";
 import PrimNavbar from "../../components/primNavbar";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -16,11 +17,24 @@ function Login() {
     password,
   };
 
-  function handleLogin() {
-    axios.post(URL, data).then((resp) => {
+  const router = useRouter();
+  async function handleLogin() {
+    try {
+      const response = await axios.post(URL, data);
+
       console.log("The data sent is:", data);
-      alert(resp.data);
-    });
+
+      // Store the access token in local storage
+      await localStorage.setItem("accessToken", response.data.accessToken);
+
+      // Redirect to the homepage
+      await router.push("/");
+
+      // Alert after navigation is complete
+      alert("Successfully logged in!");
+    } catch (error) {
+      alert(error);
+    }
   }
 
   return (

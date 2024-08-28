@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-function PrimNavbar() {
+function UserNavbar() {
   return (
     <div className="bg-black w-screen h-24 grid grid-cols-11">
       <div className="col-start-1 col-span-2 h-20 flex justify-center items-center">
@@ -18,17 +18,14 @@ function PrimNavbar() {
       </div>
       <div className="col-start-9 col-span-3 h-20">
         <ul className="text-white flex gap-8 justify-center items-end py-8 font-semibold">
-          <Link href="/Pages/Login" className="no-underline text-current">
-            <li>LogIn</li>
+          <Link href="/Pages/Profile" className="no-underline text-current">
+            <li>Profile</li>
           </Link>
-          <Link href="/Pages/Register" className="no-underline text-current">
-            {" "}
-            <li>Register</li>
-          </Link>
+          <li>Log out</li>
         </ul>
       </div>
     </div>
   );
 }
 
-export default PrimNavbar;
+export default UserNavbar;

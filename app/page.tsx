@@ -1,9 +1,27 @@
+"use client";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "../app/bootstrap";
-import { url } from "inspector";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import Midsec from "./Pages/Homepage/Midsec";
+import Lowersec from "./Pages/Homepage/Lowersec";
+import Footer from "./components/Footer";
+import RegisterShop from "./components/registerShop";
 
 export default function Home() {
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const accesstoken = localStorage.getItem("accessToken"); //retriving accessToken and storing it in at variable
+    setToken(accesstoken);
+  }, []);
+
+  const handleLogout = async () => {
+    await localStorage.removeItem("accessToken");
+    window.location.reload();
+    alert("loggedOut.");
+  };
+
   return (
     <>
       <div className="main-container h-screen w-screen bg-white">
@@ -43,20 +61,53 @@ export default function Home() {
               </ul>
             </div>
 
-            <div className="List p-1 col-start-11 col-span-2">
-              <ul className="flex gap-4">
-                <Link href="/Pages/Login">
-                  {" "}
-                  <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
-                    LogIn
-                  </li>
-                </Link>
+            {token ? (
+              <div className="List p-1 col-start-11 col-span-2">
+                <ul className="flex gap-4">
+                  <Link
+                    href="/Pages/Profile"
+                    className="no-underline text-current"
+                  >
+                    {" "}
+                    <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
+                      Profile
+                    </li>
+                  </Link>
 
-                <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
-                  Register
-                </li>
-              </ul>
-            </div>
+                  <button className="no-underline text-current">
+                    <li
+                      className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </li>
+                  </button>
+                </ul>
+              </div>
+            ) : (
+              <div className="List p-1 col-start-11 col-span-2">
+                <ul className="flex gap-4">
+                  <Link
+                    href="/Pages/Login"
+                    className="no-underline text-current"
+                  >
+                    {" "}
+                    <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
+                      LogIn
+                    </li>
+                  </Link>
+
+                  <Link
+                    href="/Pages/Register"
+                    className="no-underline text-current"
+                  >
+                    <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
+                      Register
+                    </li>
+                  </Link>
+                </ul>
+              </div>
+            )}
             <div className="headerBody relative mt-24 col-start-5 flex justify-center col-span-4 row-start-2 items-end  ">
               <h1 className="upperBodyText  text-5xl text-red-500 font-bold">
                 All
@@ -82,6 +133,10 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Midsec />
+        <Lowersec />
+        <Footer />
+        <RegisterShop />
       </div>
     </>
   );

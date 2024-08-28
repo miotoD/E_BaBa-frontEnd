@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 function Register() {
   type formFields = {
-    username: string;
+    userName: string;
     email: string;
     password: string;
   };
@@ -15,13 +15,16 @@ function Register() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<formFields>();
 
   const URL = "http://localhost:4500/authentication/register";
 
   const submitForm: SubmitHandler<formFields> = async (data) => {
-    await axios.post(data).then((resp) => {
+    await axios.post(URL, data).then((resp) => {
+      console.log("data sent is:", data);
       alert(resp.data);
+      reset();
     });
   };
   return (
@@ -39,23 +42,23 @@ function Register() {
             Let's Register Your Account
           </h1>
           <form onSubmit={handleSubmit(submitForm)}>
-            <h3 className=" font-semibold text-md ml-40 mt-16">Username</h3>
+            <h6 className=" font-semibold text-md ml-40 mt-16">Username</h6>
             <input
               type="text"
               id="username"
               className=" bg-gray-300 font-semibold ml-40 w-72 p-1 mt-2 rounded-md"
-              {...register("username", {
+              {...register("userName", {
                 required: " Username required!",
               })}
             />
-            {errors.username && (
+            {errors.userName && (
               <div className="  text-red-400 text-sm flex justify-center">
                 {" "}
-                {errors.username.message}
+                {errors.userName.message}
               </div>
             )}
 
-            <h3 className=" font-semibold text-md ml-40 mt-2">Email</h3>
+            <h6 className=" font-semibold text-md ml-40 mt-2">Email</h6>
             <input
               type="email"
               id="email"
@@ -69,7 +72,7 @@ function Register() {
                 {errors.email.message}
               </div>
             )}
-            <h3 className=" font-semibold text-md ml-40 mt-2">Password</h3>
+            <h6 className=" font-semibold text-md ml-40 mt-2">Password</h6>
             <input
               type="password"
               id="password"
