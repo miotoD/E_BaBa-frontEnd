@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Midsec from "./Pages/Homepage/Midsec";
 import Lowersec from "./Pages/Homepage/Lowersec";
 import Footer from "./components/Footer";
-import RegisterShop from "./components/registerShop";
+import RegisterShop from "./Pages/Registershop/page";
 
 export default function Home() {
   const [token, setToken] = useState("");
@@ -52,9 +52,11 @@ export default function Home() {
                 <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
                   Home
                 </li>
-                <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
-                  Shop
-                </li>
+                <Link href="/Pages/Shop" className=" no-underline text-current">
+                  <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
+                    Shop
+                  </li>
+                </Link>
                 <li className="text-gray-50 font-bold hover:text-red-500 hover:cursor-pointer hover:animate-pulse">
                   About Us
                 </li>
@@ -136,7 +138,7 @@ export default function Home() {
         <Midsec />
         <Lowersec />
         <Footer />
-        <RegisterShop />
+        {/* <RegisterShop /> */}
       </div>
     </>
   );
